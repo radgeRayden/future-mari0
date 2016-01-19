@@ -1,5 +1,5 @@
 music = {
-	thread = love.thread.newThread("musicthread", "musicloader_thread.lua"),
+	thread = love.thread.newThread("musicloader_thread.lua"),
 	toload = {},
 	loaded = {},
 	list = {},
@@ -8,6 +8,11 @@ music = {
 }
 
 music.stringlist = table.concat(music.toload, ";")
+
+--adaptation for the channel API
+love.thread.getChannel("musiclist")
+love.thread.getChannel("sources")
+
 
 function music:init()
 	self.thread:start()
@@ -22,7 +27,7 @@ function music:load(musicfile) -- can take a single file string or an array of f
 		self:preload(musicfile)
 	end
 	self.stringlist = table.concat(self.toload, ";")
-	self.thread:set("musiclist", self.stringlist)
+	love.thread.getChannel("musiclist"):push(self.stringlist)
 end
 
 function music:preload(musicfile)
@@ -33,10 +38,15 @@ function music:preload(musicfile)
 end
 
 function music:play(name)
+	print("play")
 	if name and soundenabled then
 		if self.loaded[name] == false then
-			local source = self.thread:demand(name)
-			self:onLoad(name, source)
+			local source = love.thread.getChannel("sources"):pop()
+			self:onLoad(source.name, source.source)
+			while(name ~= source.name) do
+				source = love.thread.getChannel("sources"):pop()
+				self:onLoad(source.name, source.source)
+			end
 		end
 		if self.loaded[name] then
 			playsound(self.loaded[name])
@@ -62,9 +72,9 @@ end
 
 function music:update()
 	for i,v in ipairs(self.toload) do
-		local source = self.thread:get(v)
+		local source = love.thread.getChannel("sources"):pop()
 		if source then
-			self:onLoad(v, source)
+			self:onLoad(source.name, source.source)
 		end
 	end
 	for name, source in pairs(self.loaded) do
@@ -72,7 +82,7 @@ function music:update()
 			source:setPitch(self.pitch)
 		end
 	end
-	local err = self.thread:get("error") 
+	local err = self.thread:getError()
 	if err then print(err) end
 end
 
@@ -107,4 +117,3 @@ for i,v in ipairs(music.toload) do
 end
 
 music:init()
-

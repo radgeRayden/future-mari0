@@ -137,12 +137,12 @@ function editor_update(dt)
 			return
 		end
 		
-		if love.mouse.isDown("l") and allowdrag then
+		if love.mouse.isDown(1) and allowdrag then
 			local x, y = love.mouse.getPosition()
 			placetile(x, y)
 		end
 	elseif editorstate == "main" then
-		if love.mouse.isDown("l") then
+		if love.mouse.isDown(1) then
 			local mousex, mousey = love.mouse.getPosition()
 			if mousey >= minimapy*scale and mousey < (minimapy+34)*scale then
 				if mousex >= minimapx*scale and mousex < (minimapx+394)*scale then
@@ -218,15 +218,15 @@ function editor_draw()
 			if inmap(x, y+1) then
 				love.graphics.setColor(255, 255, 255, 200)
 				if editentities == false then
-					love.graphics.drawq(tilequads[currenttile].image, tilequads[currenttile].quad, math.floor((x-splitxscroll[1]-1)*16*scale), ((y-1)*16+8)*scale, 0, scale, scale)
+					love.graphics.draw(tilequads[currenttile].image, tilequads[currenttile].quad, math.floor((x-splitxscroll[1]-1)*16*scale), ((y-1)*16+8)*scale, 0, scale, scale)
 				else
-					love.graphics.drawq(entityquads[currenttile].image, entityquads[currenttile].quad, math.floor((x-splitxscroll[1]-1)*16*scale), ((y-1)*16+8)*scale, 0, scale, scale)
+					love.graphics.draw(entityquads[currenttile].image, entityquads[currenttile].quad, math.floor((x-splitxscroll[1]-1)*16*scale), ((y-1)*16+8)*scale, 0, scale, scale)
 				end
 			end
 		end
 		
 		if editorstate == "linktool" and editorstate ~= "portalgun" then
-			if linktoolX and love.mouse.isDown("l") then
+			if linktoolX and love.mouse.isDown(1) then
 				love.graphics.line(math.floor((linktoolX-xscroll-.5)*16*scale), math.floor((linktoolY-1)*16*scale), mousex, mousey)
 			end
 			
@@ -247,17 +247,17 @@ function editor_draw()
 							local r = map[x][y]
 							local drawline = false
 							
-							if tablecontains(r, "link") and cox == x and coy == y and not love.mouse.isDown("l") then
+							if tablecontains(r, "link") and cox == x and coy == y and not love.mouse.isDown(1) then
 								love.graphics.setColor(0, 255, 0, 255)
 								drawline = true
 							elseif tablecontains(r, "link") then
 								love.graphics.setColor(150, 255, 150, 100)
 								drawline = true
-							elseif tablecontains(outputsi, map[x][y][2]) and cox == x and coy == y and linktoolX and love.mouse.isDown("l") then
+							elseif tablecontains(outputsi, map[x][y][2]) and cox == x and coy == y and linktoolX and love.mouse.isDown(1) then
 								love.graphics.setColor(255, 255, 0, 255)
 							elseif tablecontains(outputsi, map[x][y][2]) then
 								love.graphics.setColor(255, 255, 150, 150)
-							elseif cox == x and coy == y and not love.mouse.isDown("l") then
+							elseif cox == x and coy == y and not love.mouse.isDown(1) then
 								love.graphics.setColor(255, 0, 0, 255)
 							else
 								love.graphics.setColor(255, 150, 150, 150)
@@ -314,11 +314,11 @@ function editor_draw()
 			
 			if editentities == false then
 				for i = 1, tilelistcount+1 do
-					love.graphics.drawq(tilequads[i+tileliststart-1].image, tilequads[i+tileliststart-1].quad, math.mod((i-1), 22)*17*scale+5*scale, math.floor((i-1)/22)*17*scale+38*scale-tilesoffset, 0, scale, scale)
+					love.graphics.draw(tilequads[i+tileliststart-1].image, tilequads[i+tileliststart-1].quad, math.mod((i-1), 22)*17*scale+5*scale, math.floor((i-1)/22)*17*scale+38*scale-tilesoffset, 0, scale, scale)
 				end
 			else
 				for i = 1, entitiescount do
-					love.graphics.drawq(entityquads[i].image, entityquads[i].quad, math.mod((i-1), 22)*17*scale+5*scale, math.floor((i-1)/22)*17*scale+38*scale-tilesoffset, 0, scale, scale)
+					love.graphics.draw(entityquads[i].image, entityquads[i].quad, math.mod((i-1), 22)*17*scale+5*scale, math.floor((i-1)/22)*17*scale+38*scale-tilesoffset, 0, scale, scale)
 				end
 			end
 			

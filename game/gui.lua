@@ -149,7 +149,7 @@ function guielement:draw()
 			high = 2
 		end
 		
-		love.graphics.drawq(checkboximg, checkboxquad[high][quad], self.x*scale, self.y*scale, 0, scale, scale)
+		love.graphics.draw(checkboximg, checkboxquad[high][quad], self.x*scale, self.y*scale, 0, scale, scale)
 	elseif self.type == "dropdown" then
 		local high = self:inhighlight(love.mouse.getPosition())
 	
