@@ -1,4 +1,4 @@
-local supported = love.graphics.isSupported and love.graphics.isSupported("canvas") and love.graphics.isSupported("shader")
+local supported = true --shader support is always on as of 0.10.0
 local supports_npo2 = love.graphics.isSupported and love.graphics.isSupported("npot") or false -- on the safe side
 if not supported then
 	shaderssupported = false
@@ -66,8 +66,8 @@ local function CreateShaderPass()
 
 	function pass:predraw()
 		if supported and self.on and self.canvas then
-			self.canvas.canvas:clear(love.graphics.getBackgroundColor())
 			love.graphics.setCanvas(self.canvas.canvas)
+			love.graphics.clear(love.graphics.getBackgroundColor())
 			return self.canvas.canvas
 		end
 	end
@@ -228,7 +228,7 @@ function shaders:postdraw()
 	if not supported or not self.curcanvas then return end
 
 	local blendmode = love.graphics.getBlendMode()
-	love.graphics.setBlendMode("premultiplied")
+	love.graphics.setBlendMode("alpha", "premultiplied")
 	love.graphics.setColor(255, 255, 255)
 
 	local activepasses = {}
