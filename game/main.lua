@@ -1211,9 +1211,6 @@ function changescale(s, fullscreen)
 end
 
 function love.keypressed(key, unicode)
-	--quick hack for porting to 0.10. Change later.
-	if key == 'space' then key = ' ' end
-		
 	if keyprompt then
 		keypromptenter("key", key)
 		return
@@ -1253,9 +1250,6 @@ function love.keypressed(key, unicode)
 end
 
 function love.keyreleased(key, unicode)
-	--quick hack for porting to 0.10. Change later.
-	if key == 'space' then key = ' ' end
-	
 	if gamestate == "menu" or gamestate == "options" then
 		menu_keyreleased(key, unicode)
 	elseif gamestate == "game" then
@@ -1266,7 +1260,7 @@ end
 function love.mousepressed(x, y, button)
 	--quick hack for porting to 0.10. Change later.
 	if button == 1 then button = 'l' elseif button == 2 then button = 'r' end
-	
+
 	if gamestate == "menu" or gamestate == "mappackmenu" or gamestate == "onlinemenu" or gamestate == "options" then
 		menu_mousepressed(x, y, button)
 	elseif gamestate == "game" then
@@ -1295,7 +1289,7 @@ end
 function love.mousereleased(x, y, button)
 	--quick hack for porting to 0.10. Change later.
 	if button == 1 then button = 'l' elseif button == 2 then button = 'r' end
-	
+
 	if gamestate == "menu" or gamestate == "options" then
 		menu_mousereleased(x, y, button)
 	elseif gamestate == "game" then

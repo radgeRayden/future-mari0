@@ -345,10 +345,10 @@ function game_update(dt)
 				gelcannontimer = 0
 			end
 		else
-			if love.mouse.isDown("l") then
+			if love.mouse.isDown(1) then
 				gelcannontimer = gelcannondelay
 				objects["player"][mouseowner]:shootgel(1)
-			elseif love.mouse.isDown("r") then
+			elseif love.mouse.isDown(2) then
 				gelcannontimer = gelcannondelay
 				objects["player"][mouseowner]:shootgel(2)
 			end
@@ -1694,12 +1694,12 @@ function game_draw()
 						breakingblockX = cox
 						breakingblockY = coy
 						breakingblockprogress = 0
-					elseif not breakingblockX and love.mouse.isDown("l") then
+					elseif not breakingblockX and love.mouse.isDown(1) then
 						breakingblockX = cox
 						breakingblockY = coy
 						breakingblockprogress = 0
 					end
-				elseif love.mouse.isDown("l") then
+				elseif love.mouse.isDown(1) then
 					breakingblockX = cox
 					breakingblockY = coy
 					breakingblockprogress = 0
