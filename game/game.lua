@@ -3867,28 +3867,31 @@ function upkey(i)
 end
 
 function checkkey(s)
+	--we can't get joysticks by index anymore so this will be necessary
+	local joysticks = love.joystick.getJoysticks()
+
 	if s[1] == "joy" then
 		if s[3] == "hat" then
-			if s[2]:getHat(s[4]) == s[5] then
+			if joysticks[s[2]]:getHat(s[4]) == s[5] then
 				return true
 			else
 				return false
 			end
 		elseif s[3] == "but" then
-			if s[2]:isDown(s[4]) then
+			if joysticks[s[2]]:isDown(s[4]) then
 				return true
 			else
 				return false
 			end
 		elseif s[3] == "axe" then
 			if s[5] == "pos" then
-				if s[2]:getAxis(s[4]) > joystickdeadzone then
+				if joysticks[s[2]]:getAxis(s[4]) > joystickdeadzone then
 					return true
 				else
 					return false
 				end
 			else
-				if s[2]:getAxis(s[2], s[4]) < -joystickdeadzone then
+				if joysticks[s[2]]:getAxis(s[4]) < -joystickdeadzone then
 					return true
 				else
 					return false
