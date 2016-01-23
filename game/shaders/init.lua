@@ -1,5 +1,5 @@
 local supported = true --shader support is always on as of 0.10.0
-local supports_npo2 = love.graphics.isSupported and love.graphics.isSupported("npot") or false -- on the safe side
+local supports_npo2 = true --love.graphics.isSupported and love.graphics.isSupported("npot") or false -- on the safe side
 if not supported then
 	shaderssupported = false
 	print("post-processing shaders not supported")
