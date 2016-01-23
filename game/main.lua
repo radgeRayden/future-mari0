@@ -1302,6 +1302,14 @@ function love.mousereleased(x, y, button)
 end
 
 function love.joystickpressed(joystick, button)
+	--rewiring so the menu doesn't crash on draw
+	local joystick_ = joystick
+	for i,v in ipairs(love.joystick.getJoysticks()) do
+		if v:getID() == joystick_:getID() then
+			joystick = i --menu expects an index for the joystick instead of joystick userdata
+		end
+	end
+
 	if keyprompt then
 		keypromptenter("joybutton", joystick, button)
 		return
