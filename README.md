@@ -1,3 +1,5 @@
+As of 2019 this port is redundant as the original developers of the game ported it to a higher version. You can get it at https://github.com/Stabyourself/mari0.
+
 # future-mari0
 future mari0 is a work in progress port of the [mari0 1.6](http://stabyourself.net/mari0/) original code to the löve 0.10.0 API. It aims to be as little intrusive as possible while guaranteeing total compatibility so löve distribution bound platforms can play the game.
 
