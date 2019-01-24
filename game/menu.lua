@@ -1173,7 +1173,7 @@ function loadbackground(background)
 
 		--MAP ITSELF
 		local t = s2[1]:split(",")
-
+        math.mod=function(a,b) return a%b end
 		if math.mod(#t, 15) ~= 0 then
 			print("Incorrect number of entries: " .. #t)
 			return false
